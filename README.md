@@ -11,7 +11,7 @@ $ cd product-service
 
 2. Start the application
 ```shell
-$ docker-compose up
+$ docker compose up
 ```
 3. Open the swagger UI
 ```
