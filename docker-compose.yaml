@@ -1,0 +1,26 @@
+services:
+  product-db:
+    image: postgres:16.0-alpine3.18
+    environment:
+      - POSTGRES_DB=product_db
+      - POSTGRES_USER=hilmi
+      - POSTGRES_PASSWORD=secretPassword
+    volumes:
+      - product_db:/var/lib/postgresql/data
+    expose:
+      - 5432
+
+  product-service:
+    build: .
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://product-db:5432/product_db
+      - SPRING_DATASOURCE_USERNAME=hilmi
+      - SPRING_DATASOURCE_PASSWORD=secretPassword
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+    ports:
+      - 8080:8080
+    depends_on:
+      - product-db
+
+volumes:
+  product_db:
